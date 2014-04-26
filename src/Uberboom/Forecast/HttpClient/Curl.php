@@ -23,11 +23,11 @@ class Curl extends HttpClientAbstract implements HttpClientInterface
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($ch);
 		if (!$response) {
-			throw new Uberboom\Forecast\HttpRequest\Exception(curl_error($ch), curl_errno($ch));
+			throw new Exception(curl_error($ch), curl_errno($ch));
 		}
 		$httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if ($httpStatus != 200) {
-			throw new Uberboom\Forecast\HttpRequest\Exception('API returned HTTP status code ' . $httpStatus);
+			throw new Exception('API returned HTTP status code ' . $httpStatus);
 		}
 		curl_close($ch);
 

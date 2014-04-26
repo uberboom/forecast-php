@@ -20,6 +20,18 @@ class ForecastServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		$this->package('uberboom/forecast');
+
+		// bind the http client
+		$httpClient = \Config::get('forecast::httpclient');
+		switch ($httpClient) {
+			case 'curl':
+				$this->app->bind('Uberboom\Forecast\HttpClient\HttpClientInterface', 'Uberboom\Forecast\HttpClient\Curl');
+				break;
+			case 'file':
+				$this->app->bind('Uberboom\Forecast\HttpClient\HttpClientInterface', 'Uberboom\Forecast\HttpClient\File');
+				break;
+		}
+
 	}
 
 	/**

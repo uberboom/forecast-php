@@ -39,10 +39,13 @@ class Forecast
 	 * 
 	 * @return void
 	 */
-	public function __construct(CacheStore\CacheStoreInterface $cacheStore = null)
+	public function __construct(CacheStore\CacheStoreInterface $cacheStore = null, HttpClient\HttpClientInterface $httpClient)
 	{
 		if (!is_null($cacheStore)) {
 			$this->setCacheStore($cacheStore);
+		}
+		if (!is_null($httpClient)) {
+			$this->setHttpClientWrapper($httpClient);
 		}
 	}
 	
