@@ -1,23 +1,7 @@
 <?php namespace Uberboom\Forecast;
 
-class DataBlock
+class DataBlock extends DataAbstract
 {
-	/**
-	 * Raw response from Forecast API
-	 * @var stdClass
-	 */
-	protected $_response;
-
-	/**
-	 * Constructor
-	 * 
-	 * @param  stdClass  $response  JSON response from Forecast API
-	 */
-	public function __construct(\stdClass $response)
-	{
-		$this->_response = $response;
-	}
-
 	/**
 	 * Get a human-readable text summary of this data block.
 	 * 
@@ -62,7 +46,7 @@ class DataBlock
 		}
 		$data = array();
 		foreach ($this->_response->data as $item) {
-			$data[] = new DataPoint($item);
+			$data[] = new DataPoint($item, $this->_timezone);
 		}
 	    return $data;
 	}

@@ -4,9 +4,65 @@ class Data
 {
 	/**
 	 * Raw response from Forecast API
+	 * 
 	 * @var stdClass
 	 */
 	protected $_response;
+
+	/**
+	 * Flags
+	 * 
+	 * Flags are stored in this property after accessing getFlags() for the first time.
+	 * 
+	 * @see getFlags()
+	 * 
+	 * @var DataFlag
+	 */
+	protected $_flags;
+
+	/**
+	 * Currently
+	 * 
+	 * Currently is stored in this property after accessing currently() for the first time.
+	 * 
+	 * @see currently()
+	 * 
+	 * @var DataPoint
+	 */
+	protected $_currently;
+
+	/**
+	 * Minutely
+	 * 
+	 * Minutely is stored in this property after accessing minutely() for the first time.
+	 * 
+	 * @see minutely()
+	 * 
+	 * @var DataPoint
+	 */
+	protected $_minutely;
+
+	/**
+	 * Hourly
+	 * 
+	 * Hourly is stored in this property after accessing hourly() for the first time.
+	 * 
+	 * @see hourly()
+	 * 
+	 * @var DataPoint
+	 */
+	protected $_hourly;
+
+	/**
+	 * Daily
+	 * 
+	 * Daily is stored in this property after accessing daily() for the first time.
+	 * 
+	 * @see daily()
+	 * 
+	 * @var DataPoint
+	 */
+	protected $_daily;
 
 	/**
 	 * Constructor
@@ -58,10 +114,10 @@ class Data
 	 */
 	public function getTimezone()
 	{
-		if (!property_exists($this->_response, 'longitude')) {
+		if (!property_exists($this->_response, 'timezone')) {
 			return false;
 		}
-		return $this->_response->longitude;
+		return $this->_response->timezone;
 	}
 	
 	/**
@@ -78,16 +134,41 @@ class Data
 	}
 	
 	/**
+	 * Returns true if current weather conditions are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasCurrently()
+	{
+		return property_exists($this->_response, 'currently');
+	}
+
+	/**
 	 * Get current weather conditions at the requested location
 	 *
 	 * @return \Uberboom\Forecast\DataPoint
 	 */
 	public function currently()
 	{
-		if (!property_exists($this->_response, 'currently')) {
+		// return data stored in property if exists to improve performance
+		if (!is_null($this->_currently)) {
+			return $this->_currently;
+		}
+
+		if (!$this->hasCurrently()) {
 			return false;
 		}
-	    return new DataPoint($this->_response->currently);
+	    return new DataPoint($this->_response->currently, $this->getTimezone());
+	}
+
+	/**
+	 * Returns true if minute-by-minute weather conditions are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasMinutely()
+	{
+		return property_exists($this->_response, 'minutely');
 	}
 
 	/**
@@ -97,10 +178,25 @@ class Data
 	 */
 	public function minutely()
 	{
-		if (!property_exists($this->_response, 'minutely')) {
+		// return data stored in property if exists to improve performance
+		if (!is_null($this->_minutely)) {
+			return $this->_minutely;
+		}
+
+		if (!$this->hasMinutely()) {
 			return false;
 		}
-	    return new DataBlock($this->_response->minutely);
+	    return new DataBlock($this->_response->minutely, $this->getTimezone());
+	}
+
+	/**
+	 * Returns true if hour-by-hour weather conditions are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasHourly()
+	{
+		return property_exists($this->_response, 'hourly');
 	}
 
 	/**
@@ -110,10 +206,15 @@ class Data
 	 */
 	public function hourly()
 	{
-		if (!property_exists($this->_response, 'hourly')) {
+		// return data stored in property if exists to improve performance
+		if (!is_null($this->_hourly)) {
+			return $this->_hourly;
+		}
+
+		if (!$this->hasHourly()) {
 			return false;
 		}
-	    return new DataBlock($this->_response->hourly);
+	    return new DataBlock($this->_response->hourly, $this->getTimezone());
 	}
 
 	/**
@@ -133,10 +234,15 @@ class Data
 	 */
 	public function daily()
 	{
+		// return data stored in property if exists to improve performance
+		if (!is_null($this->_daily)) {
+			return $this->_daily;
+		}
+
 		if (!$this->hasDaily()) {
 			return false;
 		}
-	    return new DataBlock($this->_response->daily);
+	    return new DataBlock($this->_response->daily, $this->getTimezone());
 	}
 	
 	/**
@@ -162,9 +268,19 @@ class Data
 		}
 		$data = array();
 		foreach ($this->_response->alerts as $item) {
-			$data[] = new DataAlert($item);
+			$data[] = new DataAlert($item, $this->getTimezone());
 		}
 	    return $data;
+	}
+
+	/**
+	 * Returns true if flags are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasFlags()
+	{
+		return property_exists($this->_response, 'flags');
 	}
 
 	/**
@@ -174,10 +290,17 @@ class Data
 	 */
 	public function getFlags()
 	{
-		if (!property_exists($this->_response, 'flags')) {
+		// return flags stored in property if exists to improve performance
+		if (!is_null($this->_flags)) {
+			return $this->_flags;
+		}
+
+		if (!$this->hasFlags()) {
+			$this->_flags = false;
 			return false;
 		}
-	    return new DataFlag($this->_response->flags);
+	    $this->_flags = new DataFlag($this->_response->flags, $this->getTimezone());
+		return $this->_flags;
 	}
 
 }

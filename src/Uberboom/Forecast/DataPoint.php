@@ -1,6 +1,6 @@
 <?php namespace Uberboom\Forecast;
 
-class DataPoint
+class DataPoint extends DataAbstract
 {
 	/**
 	 * Icons used for machine-readable text summaries
@@ -29,22 +29,6 @@ class DataPoint
 	const TYPE_PRECIP_RAIN = 'rain';
 	const TYPE_PRECIP_SNOW = 'snow';
 	const TYPE_PRECIP_SLEET = 'sleet';
-
-	/**
-	 * Raw response from Forecast API
-	 * @var stdClass
-	 */
-	protected $_response;
-
-	/**
-	 * Constructor
-	 * 
-	 * @param  stdClass  $response  JSON response from Forecast API
-	 */
-	public function __construct(\stdClass $response)
-	{
-		$this->_response = $response;
-	}
 
 	/**
 	 * Get the UNIX time at which this data point occurs.

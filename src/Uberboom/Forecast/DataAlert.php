@@ -1,23 +1,7 @@
 <?php namespace Uberboom\Forecast;
 
-class DataAlert
+class DataAlert extends DataAbstract
 {
-	/**
-	 * Raw response from Forecast API
-	 * @var stdClass
-	 */
-	protected $_response;
-
-	/**
-	 * Constructor
-	 * 
-	 * @param  stdClass  $response  JSON response from Forecast API
-	 */
-	public function __construct(\stdClass $response)
-	{
-		$this->_response = $response;
-	}
-
 	/**
 	 * Get a short text summary of the alert.
 	 * 
@@ -36,7 +20,7 @@ class DataAlert
 	 * 
 	 * @return int
 	 */
-	public function expires()
+	public function getExpires()
 	{
 		if (!property_exists($this->_response, 'expires')) {
 			return false;

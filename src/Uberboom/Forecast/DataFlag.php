@@ -1,23 +1,7 @@
 <?php namespace Uberboom\Forecast;
 
-class DataFlag
+class DataFlag extends DataAbstract
 {
-	/**
-	 * Raw response from Forecast API
-	 * @var stdClass
-	 */
-	protected $_response;
-
-	/**
-	 * Constructor
-	 * 
-	 * @param  stdClass  $response  JSON response from Forecast API
-	 */
-	public function __construct(\stdClass $response)
-	{
-		$this->_response = $response;
-	}
-		
 	/**
 	 * Indicates that the Dark Sky data source supports the given location, but a temporary error
 	 * (such as a radar station being down for maintenance) has made the data unavailable.
@@ -33,16 +17,36 @@ class DataFlag
 	}
 
 	/**
+	 * Returns true if radar stations are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasDarkSkyStations()
+	{
+		return property_exists($this->_response, 'darksky-stations');
+	}
+
+	/**
 	 * Get IDs of radar stations utilized in servicing this request.
 	 * 
 	 * @return array
 	 */
 	public function getDarkSkyStations()
 	{
-		if (!property_exists($this->_response, 'darksky-stations')) {
+		if (!$this->hasDarkSkyStations()) {
 			return false;
 		}
 		return $this->_response->{'darksky-stations'};
+	}
+
+	/**
+	 * Returns true if DataPoint stations are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasDataPointStations()
+	{
+		return property_exists($this->_response, 'datapoint-stations');
 	}
 
 	/**
@@ -53,10 +57,20 @@ class DataFlag
 	 */
 	public function getDataPointStations()
 	{
-		if (!property_exists($this->_response, 'datapoint-stations')) {
+		if (!$this->hasDataPointStations()) {
 			return false;
 		}
 		return $this->_response->{'datapoint-stations'};
+	}
+
+	/**
+	 * Returns true if ISD stations are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasIsdStations()
+	{
+		return property_exists($this->_response, 'isd-stations');
 	}
 
 	/**
@@ -67,10 +81,20 @@ class DataFlag
 	 */
 	public function getIsdStations()
 	{
-		if (!property_exists($this->_response, 'isd-stations')) {
+		if (!$this->hasIsdStations()) {
 			return false;
 		}
 		return $this->_response->{'isd-stations'};
+	}
+
+	/**
+	 * Returns true if Madis stations are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasMadisStations()
+	{
+		return property_exists($this->_response, 'madis-stations');
 	}
 
 	/**
@@ -81,10 +105,20 @@ class DataFlag
 	 */
 	public function getMadisStations()
 	{
-		if (!property_exists($this->_response, 'madis-stations')) {
+		if (!$this->hasMadisStations()) {
 			return false;
 		}
 		return $this->_response->{'madis-stations'};
+	}
+
+	/**
+	 * Returns true if LAMP stations are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasLampStations()
+	{
+		return property_exists($this->_response, 'lamp-stations');
 	}
 
 	/**
@@ -95,10 +129,20 @@ class DataFlag
 	 */
 	public function getLampStations()
 	{
-		if (!property_exists($this->_response, 'lamp-stations')) {
+		if (!$this->hasLampStations()) {
 			return false;
 		}
 		return $this->_response->{'lamp-stations'};
+	}
+
+	/**
+	 * Returns true if METAR stations are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasMetarStations()
+	{
+		return property_exists($this->_response, 'metar-stations');
 	}
 
 	/**
@@ -108,10 +152,20 @@ class DataFlag
 	 */
 	public function getMetarStations()
 	{
-		if (!property_exists($this->_response, 'metar-stations')) {
+		if (!$this->hasMetarStations()) {
 			return false;
 		}
 		return $this->_response->{'metar-stations'};
+	}
+
+	/**
+	 * Returns true if api.met.no license is available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasMetNoLicense()
+	{
+		return property_exists($this->_response, 'metno-license');
 	}
 
 	/**
@@ -121,10 +175,20 @@ class DataFlag
 	 */
 	public function getMetNoLicense()
 	{
-		if (!property_exists($this->_response, 'metno-license')) {
+		if (!$this->hasMetNoLicense()) {
 			return false;
 		}
 		return $this->_response->{'metno-license'};
+	}
+
+	/**
+	 * Returns true if sources are available.
+	 * 
+	 * @return boolean
+	 */
+	public function hasSources()
+	{
+		return property_exists($this->_response, 'sources');
 	}
 
 	/**
@@ -134,7 +198,7 @@ class DataFlag
 	 */
 	public function getSources()
 	{
-		if (!property_exists($this->_response, 'sources')) {
+		if (!$this->hasSources()) {
 			return false;
 		}
 		return $this->_response->sources;

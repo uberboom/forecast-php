@@ -53,7 +53,7 @@ Get an API key at [Forecast for Developers](https://developer.forecast.io) and a
 
 #### Configuring the HTTP Client
 
-The package includes two difference HTTP client implementations: One is using the [PHP Curl extension](http://www.php.net/manual/book.curl.php), the other one relies on `file_get_contents`, so make sure that [`allow_url_fopen`](http://www.php.net/manual/filesystem.configuration.php#ini.allow-url-fopen) is enabled in your php.ini file.
+The package includes two difference HTTP client implementations: One is using the [PHP Curl extension](http://www.php.net/manual/book.curl.php), the other one relies on `file_get_contents`, so make sure that either the Curl extension is loaded or [`allow_url_fopen`](http://www.php.net/manual/filesystem.configuration.php#ini.allow-url-fopen) is enabled in your php.ini file.
 
 ```php
 'httpclient' => 'curl|file',
@@ -86,7 +86,7 @@ $forecast->setApiKey($forecastApiKey);
 
 ### Setting the HTTP Client
 
-The package includes two difference HTTP client implementations: One is using the [PHP Curl extension](http://www.php.net/manual/book.curl.php), the other one relies on `file_get_contents`, so make sure that [`allow_url_fopen`](http://www.php.net/manual/filesystem.configuration.php#ini.allow-url-fopen) is enabled in your php.ini file.
+The package includes two difference HTTP client implementations: One is using the [PHP Curl extension](http://www.php.net/manual/book.curl.php), the other one relies on `file_get_contents`, so make sure that either the Curl extension is loaded or [`allow_url_fopen`](http://www.php.net/manual/filesystem.configuration.php#ini.allow-url-fopen) is enabled in your php.ini file.
 
 ```php
 $forecast->setHttpClientWrapper(new \Uberboom\Forecast\HttpClient\Curl());
