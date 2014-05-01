@@ -65,6 +65,73 @@ class Data
 	protected $_daily;
 
 	/**
+	 * Units
+	 * 
+	 * Units used in response is stored in this property after accessing getUnits() for the first time.
+	 * 
+	 * @see getUnits()
+	 * 
+	 * @var string
+	 */
+	protected $_units;
+	
+	/**
+	 * Units to method mapping
+	 *
+	 * @var array
+	 */
+	protected $_unitsByMethod = array(
+		'getNearestStormDistanceUnit' => array(
+			'ca' => 'km',
+			'si' => 'km',
+			'uk' => 'km',
+			'us' => 'mi',
+		),
+		'getPrecipIntensityUnit' => array(
+			'ca' => 'mm/h',
+			'si' => 'mm/h',
+			'uk' => 'mm/h',
+			'us' => 'in/h',
+		),
+		'getPrecipAccumulationUnit' => array(
+			'ca' => 'cm',
+			'si' => 'cm',
+			'uk' => 'cm',
+			'us' => 'in',
+		),
+		'getTemperatureUnit' => array(
+			'ca' => '°C',
+			'si' => '°C',
+			'uk' => '°C',
+			'us' => '°F',
+		),
+		'getWindSpeedUnit' => array(
+			'ca' => 'km/h',
+			'si' => 'm/s',
+			'uk' => 'mi/h',
+			'us' => 'mi/h',
+		),
+		'getPressureUnit' => array(
+			'ca' => 'mbar',
+			'si' => 'mbar',
+			'uk' => 'mbar',
+			'us' => 'hPa',
+		),
+		'getVisibilityUnit' => array(
+			'ca' => 'km',
+			'si' => 'km',
+			'uk' => 'km',
+			'us' => 'mi',
+		),
+		'getOzoneUnit' => array(
+			'ca' => 'DU',
+			'si' => 'DU',
+			'uk' => 'DU',
+			'us' => 'DU',
+		),
+	);
+
+	/**
 	 * Constructor
 	 * 
 	 * @param  stdClass  $response  JSON response from Forecast API
@@ -303,4 +370,117 @@ class Data
 		return $this->_flags;
 	}
 
+	/**
+	 * Get units used in response
+	 *
+	 * @see DataFlag::getUnits
+	 * 
+	 * @return string
+	 */
+	protected function _getUnits()
+	{
+		if (!is_null($this->_units)) {
+			return $this->_units;
+		}
+
+		$flags = $this->getFlags();
+		if (!$flags) {
+			$this->_units = false;
+		} else {
+			$this->_units = $flags->getUnits();
+		}
+		return $this->_units;
+	}
+	
+	/**
+	 * Get unit used for {@link DataPoint\getNearestStormDistance()}
+	 * 
+	 * @return string
+	 */
+	public function getNearestStormDistanceUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+	
+	/**
+	 * Get unit used for {@link DataPoint\todo()}
+	 * 
+	 * @return string
+	 */
+	public function getPrecipIntensityUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+
+	/**
+	 * Get unit used for {@link DataPoint\todo()}
+	 * 
+	 * @return string
+	 */
+	public function getPrecipAccumulationUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+
+	/**
+	 * Get unit used for {@link DataPoint\todo()}
+	 * 
+	 * @return string
+	 */
+	public function getTemperatureUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+
+	/**
+	 * Get unit used for {@link DataPoint\todo()}
+	 * 
+	 * @return string
+	 */
+	public function getWindSpeedUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+
+	/**
+	 * Get unit used for {@link DataPoint\getPressure()}
+	 * 
+	 * @return string
+	 */
+	public function getPressureUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+
+	/**
+	 * Get unit used for {@link DataPoint\getVisibility()}
+	 * 
+	 * @return string
+	 */
+	public function getVisibilityUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+
+	/**
+	 * Get unit used for {@link DataPoint\getOzone()}
+	 * 
+	 * @return string
+	 */
+	public function getOzoneUnit()
+	{
+		return $this->_getUnitByMethod(__FUNCTION__);
+	}
+
+	/**
+	 * Get unit for a method
+	 * 
+	 * @return string
+	 */
+	protected function _getUnitByMethod($method)
+	{
+		$units = $this->_getUnits();
+		return $this->_unitsByMethod[$method][$units];
+	}
+	
 }
