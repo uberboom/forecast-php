@@ -1,5 +1,22 @@
-<?php namespace Uberboom\Forecast;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast;
+
+/**
+ * Flag
+ * 
+ * Excerpt from the Forecast.io API documentation:
+ * “The flags object contains various metadata information related to the request.”
+ */
 class DataFlag extends DataAbstract
 {
 	/**

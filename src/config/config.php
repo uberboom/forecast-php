@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Forecast configuration file used by Laravel
+ */
+
 return array(
 
 	/*

@@ -1,5 +1,22 @@
-<?php namespace Uberboom\Forecast;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast;
+
+/**
+ * Data block
+ * 
+ * Excerpt from the Forecast.io API documentation:
+ * “A data block object represents the various weather phenomena occurring over a period of time […]”
+ */
 class DataBlock extends DataAbstract
 {
 	/**

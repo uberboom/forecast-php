@@ -1,5 +1,19 @@
-<?php namespace Uberboom\Forecast\HttpClient;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast\HttpClient;
+
+/**
+ * HTTP client exception
+ */
 class Exception extends \Exception
 {
 }

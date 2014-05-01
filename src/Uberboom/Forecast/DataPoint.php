@@ -1,5 +1,24 @@
-<?php namespace Uberboom\Forecast;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast;
+
+/**
+ * Data point
+ * 
+ * Excerpt from the Forecast.io API documentation:
+ * “A data point object represents the various weather phenomena occurring at a specific instant of time,
+ * and has many varied properties. All of these properties (except time) are optional, and will only be
+ * set if we have that type of information for that location and time.”
+ */
 class DataPoint extends DataAbstract
 {
 	/**
@@ -585,6 +604,8 @@ class DataPoint extends DataAbstract
 	 * weak confidence. These properties are omitted where the confidence is not precisely
 	 * known (though generally considered to be adequate).
 	 * 
+	 * @param  string   $name   Name of the method being called
+	 * 
 	 * @return float
 	 */
 	public function __call($name, array $arguments)
@@ -614,6 +635,8 @@ class DataPoint extends DataAbstract
 	 * Property overloading to use method shortcuts
 	 * 
 	 * For example use humidity to call getHumidity()
+	 * 
+	 * @param  string  $name  Name of the property being interacted with
 	 * 
 	 * @return mixed
 	 */

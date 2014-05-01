@@ -1,5 +1,19 @@
-<?php namespace Uberboom\Forecast;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast;
+
+/**
+ * Data returned by {@link Forecast\getWeatherByLocation()}
+ */
 class Data
 {
 	/**
@@ -474,6 +488,8 @@ class Data
 
 	/**
 	 * Get unit for a method
+	 * 
+	 * @param  string  $method  Name of the method a unit should be retrieved for
 	 * 
 	 * @return string
 	 */

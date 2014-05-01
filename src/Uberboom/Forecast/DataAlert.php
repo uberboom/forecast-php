@@ -1,5 +1,23 @@
-<?php namespace Uberboom\Forecast;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast;
+
+/**
+ * Alert
+ * 
+ * Excerpt from the Forecast.io API documentation:
+ * “An alert object represents a severe weather warning issued for the requested location
+ * by a governmental authority”
+ */
 class DataAlert extends DataAbstract
 {
 	/**

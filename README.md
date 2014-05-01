@@ -9,7 +9,8 @@ Forecast.io API for PHP
 * Provide your own cache store and http client, if required
 
 
-## Setup for Laravel 4
+
+## Using Forecast with Laravel 4
 
 
 ### App Configuration
@@ -53,19 +54,25 @@ Get an API key at [Forecast for Developers](https://developer.forecast.io) and a
 
 #### Configuring the HTTP Client
 
-The package includes two difference HTTP client implementations: One is using the [PHP Curl extension](http://www.php.net/manual/book.curl.php), the other one relies on `file_get_contents`, so make sure that either the Curl extension is loaded or [`allow_url_fopen`](http://www.php.net/manual/filesystem.configuration.php#ini.allow-url-fopen) is enabled in your php.ini file.
+The package includes two difference HTTP client implementations: One is using the [PHP Curl extension](http://www.php.net/manual/book.curl.php), the other one relies on `file_get_contents()`, so make sure that either the Curl extension is loaded or [`allow_url_fopen`](http://www.php.net/manual/filesystem.configuration.php#ini.allow-url-fopen) is enabled in your php.ini file.
 
 ```php
 'httpclient' => 'curl|file',
 ```
 
 
-### Retrieve the Weather Forecast
+### Retrieving the Weather Forecast
 
 The package provides some Laravel Facade magic, so fetching the weather forecast is a piece of cake:
 
 ```php
 $weather = \Forecast::getWeatherByLocation($latitude, $longitude);
+```
+
+If you need to change the units, you can set the units used in the response by using the method `setUnits()`:
+
+```php
+$weather = \Forecast::setUnits(\Uberboom\Forecast\Forecast::UNITS_SI)->getWeatherByLocation($latitude, $longitude);
 ```
 
 
@@ -101,3 +108,24 @@ Currently, the package only includes an implementation for the Laravel framework
 ```php
 $forecast->setCacheStore(new YourCacheStore());
 ```
+
+
+### Retrieving the Weather Forecast
+
+```php
+$forecast->setUnits(\Uberboom\Forecast\Forecast::UNITS_SI);
+```
+
+If you need to change the units, you can set the units used in the response by using the method `setUnits()`:
+
+```php
+$weather = $forecast::setUnits(\Uberboom\Forecast\Forecast::UNITS_SI)->getWeatherByLocation($latitude, $longitude);
+```
+
+
+
+## Todo
+
+* API documentation
+* Provide unit tests
+

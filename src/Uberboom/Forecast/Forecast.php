@@ -1,5 +1,19 @@
-<?php namespace Uberboom\Forecast;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast;
+
+/**
+ * Forecast
+ */
 class Forecast
 {
 	/**
@@ -92,10 +106,10 @@ class Forecast
 	/**
 	 * Set forecast.io API key
 	 * 
-	 * @param  string   $api_key   API key
-	 * 
 	 * @link   https://developer.forecast.io
 	 *
+	 * @param  string   $apiKey   API key
+	 * 
 	 * @return \Uberboom\Forecast\Forecast
 	 */
 	public function setApiKey($apiKey)

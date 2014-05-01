@@ -1,5 +1,19 @@
-<?php namespace Uberboom\Forecast\CacheStore;
+<?php
 
+/**
+ * Forecast.io package
+ * 
+ * PHP package to simplify Forecast.io API calls
+ * 
+ * @package  Forecast
+ * @author   Bernd Ennsfellner <bernd@ennsfellner.at>
+ */
+
+namespace Uberboom\Forecast\CacheStore;
+
+/**
+ * Interface for the cache store optionally used by the Forecast package
+ */
 interface CacheStoreInterface
 {
 	/**
