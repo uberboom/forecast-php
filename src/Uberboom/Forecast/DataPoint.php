@@ -593,17 +593,37 @@ class DataPoint extends DataAbstract
 			throw new \Uberboom\Forecast\Exception('Time fields have no associated error value');
 		}
 		if (strpos($name, 'get') !== 0) {
-			throw new \Uberboom\Forecast\Exception('Method not supported');
+			throw new \Uberboom\Forecast\Exception('Method not supported: ' . $name);
 		}
+
+		// handle error methods: e.g. getPrecipIntensityError()
 		$method = preg_replace('/Error$/ui', '', $name);
 		$property = lcfirst(preg_replace('/get([a-zA-Z]*Error)$/ui', '$1', $name));
+		if (method_exists($this, $method)) {
+			if (!property_exists($this->_response, $property)) {
+				return false;
+			}
+			return $this->_response->$property;
+		} else {
+			throw new \Uberboom\Forecast\Exception('Method does not exist: ' . $name);
+		}
+
+	}
+	
+	/**
+	 * Property overloading to use method shortcuts
+	 * 
+	 * For example use humidity to call getHumidity()
+	 * 
+	 * @return mixed
+	 */
+	public function __get($name)
+	{
+		$method = 'get' . $name;
 		if (!method_exists($this, $method)) {
-			throw new \Uberboom\Forecast\Exception('Method does not exist');
+			throw new \Uberboom\Forecast\Exception('Property does not exist: ' . $name);
 		}
-		if (!property_exists($this->_response, $property)) {
-			return false;
-		}
-		return $this->_response->$property;
+		return $this->$method();
 	}
 
 }
