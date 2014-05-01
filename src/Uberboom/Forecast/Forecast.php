@@ -141,7 +141,7 @@ class Forecast
 	}
 	
 	/**
-	 * Set units used for the API response
+	 * Set units used for the API request
 	 * 
 	 * @see    self::UNITS_*
 	 * 
@@ -156,7 +156,7 @@ class Forecast
 	}
 	
 	/**
-	 * Get units used for the API response
+	 * Get units used for the API request
 	 *
 	 * @return string
 	 */
@@ -239,21 +239,5 @@ class Forecast
 		return new Data($json);
 
 	}
-
-/*
-summary: Any summaries containing temperature or snow accumulation units will have their values in degrees Celsius or in centimeters (respectively).
-nearestStormDistance: Kilometers.
-precipIntensity: Millimeters per hour.
-precipIntensityMax: Millimeters per hour.
-precipAccumulation: Centimeters.
-temperature: Degrees Celsius.
-temperatureMin: Degrees Celsius.
-temperatureMax: Degrees Celsius.
-apparentTemperature: Degrees Celsius.
-dewPoint: Degrees Celsius.
-windSpeed: Meters per second.
-pressure: Hectopascals (which are, conveniently, equivalent to the default millibars).
-visibility: Kilometers.
-*/
 	
 }
