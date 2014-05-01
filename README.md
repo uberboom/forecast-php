@@ -126,6 +126,6 @@ $weather = $forecast::setUnits(\Uberboom\Forecast\Forecast::UNITS_SI)->getWeathe
 
 ## Todo
 
-* API documentation
+* Improve API documentation
 * Provide unit tests
 
