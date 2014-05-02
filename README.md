@@ -103,7 +103,7 @@ $forecast->setHttpClientWrapper(new \Uberboom\Forecast\HttpClient\File());
 
 ### Cache
 
-Currently, the package only includes an implementation for the Laravel framework. If you want to use the package’s cache functionality, you need to build and inject your own cache store class, which has to implement the `\Uberboom\Forecast\CacheStore\CacheStoreInterface` interface.
+Currently, the package only includes an cache store implementation for the Laravel framework. If you want to use the package’s cache functionality, you need to build and inject your own cache store class, which has to implement the `\Uberboom\Forecast\CacheStore\CacheStoreInterface` interface.
 
 ```php
 $forecast->setCacheStore(new YourCacheStore());
@@ -113,7 +113,7 @@ $forecast->setCacheStore(new YourCacheStore());
 ### Retrieving the Weather Forecast
 
 ```php
-$forecast->setUnits(\Uberboom\Forecast\Forecast::UNITS_SI);
+$forecast->getWeatherByLocation($latitude, $longitude);
 ```
 
 If you need to change the units, you can set the units used in the response by using the method `setUnits()`:
